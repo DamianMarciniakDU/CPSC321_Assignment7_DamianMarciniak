@@ -1,0 +1,93 @@
+﻿@model CPSC321_Assignment7_DamianMarciniak.Models.UserModel
+
+@{
+    ViewData["Title"] = "CreateUser";
+}
+
+<h1>Create User</h1>
+
+<form id="createUserForm" method="post" asp-controller="User" asp-action="CreateUser" class="needs-validation" novalidate>
+    <div class="mb-3">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" class="form-control" id="firstName" name="FirstName" pattern="^[A-Za-z]{3,10}$" required>
+        <div class="invalid-feedback">First Name must be 3–10 letters (A–Z only).</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" class="form-control" id="lastName" name="LastName" pattern="^[A-Za-z]{3,10}$" required>
+        <div class="invalid-feedback">Last Name must be 3–10 letters (A–Z only).</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="department" class="form-label">Department</label>
+        <select class="form-select" id="department" name="Department" required>
+            <option value="">Select Department</option>
+            <option value="IT">IT</option>
+            <option value="Business">Business</option>
+        </select>
+        <div class="invalid-feedback">Please select a department.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="position" class="form-label">Position</label>
+        <select class="form-select" id="position" name="Position" required disabled>
+            <option value="">Select Position</option>
+        </select>
+        <div class="invalid-feedback">Please select a position.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="experience" class="form-label">Years of Experience</label>
+        <input type="number" class="form-control" id="experience" name="YearsOfExperience" min="0" max="30" required>
+        <div class="invalid-feedback">Years of Experience must be between 0 and 30.</div>
+    </div>
+
+    <div class="mb-3">
+        <label for="salary" class="form-label">Salary</label>
+        <input type="number" class="form-control" id="salary" name="Salary" min="1" max="100000" step="0.01" required>
+        <div class="invalid-feedback">Salary must be between 1 and 100,000.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create User</button>
+    <a class="btn btn-outline-secondary ms-2" asp-controller="User" asp-action="ListOfUsers">Go to User List</a>
+</form>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#department').change(function () {
+                var department = $(this).val();
+                var positionSelect = $('#position');
+
+                positionSelect.empty().append('<option value="">Select Position</option>');
+
+                if (department === 'IT') {
+                    positionSelect.append('<option value="Software Engineer">Software Engineer</option>');
+                    positionSelect.append('<option value="Data Scientist">Data Scientist</option>');
+                    positionSelect.append('<option value="Data Analyst">Data Analyst</option>');
+                    positionSelect.append('<option value="Security Engineer">Security Engineer</option>');
+                } else if (department === 'Business') {
+                    positionSelect.append('<option value="Sales">Sales</option>');
+                    positionSelect.append('<option value="Accountant">Accountant</option>');
+                    positionSelect.append('<option value="Business Analyst">Business Analyst</option>');
+                    positionSelect.append('<option value="Project Manager">Project Manager</option>');
+                }
+
+                positionSelect.prop('disabled', !department);
+            });
+        });
+    </script>
+    <script>
+        (() => {
+            const form = document.getElementById('createUserForm');
+            form.addEventListener('submit', (event) => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        })();
+    </script>
+}

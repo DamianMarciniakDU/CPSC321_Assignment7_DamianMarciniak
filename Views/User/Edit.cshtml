@@ -1,0 +1,15 @@
+﻿@*
+*@
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container">
+    <h2>Edit Options</h2>
+    <p>Please select what you would like to edit:</p>
+    <div class="btn-group" role="group" aria-label="Edit Options">
+        <a href="@Url.Action("EditUserSalary", "User", new { id = Model.Id })" class="btn btn-primary">Salary</a>
+        <a href="@Url.Action("EditUserYearsOfExperience", "User", new { id = Model.Id })" class="btn btn-secondary">Years of Experience</a>
+    </div>
+</div>
+<a class="btn btn-outline-secondary ms-2" href="javascript:history.back()">Back To List</a>

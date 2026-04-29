@@ -1,0 +1,66 @@
+﻿@model IEnumerable<CPSC321_Assignment7_DamianMarciniak.Models.UserModel>
+
+@{
+    ViewData["Title"] = "User List";
+}
+<h1>@ViewData["Title"]</h1>
+
+<p>View users list</p>
+
+@if (Model != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Department</th>
+                <th scope="col">Position</th>
+                <th scope="col">Years of Experience</th>
+                <th scope="col">Salary</th>
+                <th scope="col">Award</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Department</td>
+                    <td>@user.Position</td>
+                    <td>@user.YearsOfExperience</td>
+                    <td>@user.Salary</td>
+                    <td>
+                        @if (user.YearsOfExperience >= 5 && user.YearsOfExperience <= 9)
+                        {
+                            <img src="~/bronzeribbon.png" alt="Bronze Ribbon" width="30" height="30" />
+                        }
+                        else if (user.YearsOfExperience >= 10 && user.YearsOfExperience <= 15)
+                        {
+                            <img src="~/silverribbon.png" alt="Silver Ribbon" width="30" height="30" />
+                        }
+                        else if (user.YearsOfExperience >= 16 && user.YearsOfExperience <= 20)
+                        {
+                            <img src="~/goldribbon.png" alt="Gold Ribbon" width="30" height="30" />
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = user.Id }) |
+                        @Html.ActionLink("Details", "Details", new { id = user.Id }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = user.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}
+else
+{
+    <p>No users found.</p>
+
+}

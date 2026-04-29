@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Delete";
+}
+
+<div class="container">
+    <h2>Delete User</h2>
+    <p>Please enter a comment for why this user is being deleted:</p>
+    <form asp-controller="User" asp-action="Delete" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="deletionComment">Deletion Comment:</label>
+            <input type="text" class="form-control" id="deletionComment" name="DeletionComment" required />
+        </div>
+        <br>
+        <button type="submit" class="btn btn-danger">Delete User</button>
+    </form>
+</div>
+<a class="btn btn-outline-secondary ms-2" href="javascript:history.back()">Back To List</a>
